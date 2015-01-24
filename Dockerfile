@@ -10,8 +10,8 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main" >> /etc
   apt-get install -yq sudo postgresql-9.4 && \
   apt-get clean && \
   sudo -u postgres mkdir /var/run/postgresql/9.4-main.pg_stat_tmp && \
-  mkdir -p /data/database && chown postgres:postgres /data/database && \
-  chown postgres:postgres /etc/ssl/private/ssl-cert-snakeoil.key
+  mkdir -p /data/database && chown postgres:postgres /data/database
+  # chown postgres:postgres /etc/ssl/private/ssl-cert-snakeoil.key
 
 # set permissions to allow logins, trust the bridge, this is the default for docker YMMV
 RUN echo "host    all             all             192.168.59.0/24            trust" >> /etc/postgresql/9.4/main/pg_hba.conf && \
@@ -25,7 +25,8 @@ RUN echo "host    all             all             192.168.59.0/24            tru
   sed -i -e "s/#autovacuum\s*=.*/autovacuum = on/g" /etc/postgresql/9.4/main/postgresql.conf && \
   sed -i -e "s/#autovacuum_naptime\s*=.*/autovacuum_naptime = 30min/g" /etc/postgresql/9.4/main/postgresql.conf && \
   sed -i -e "s/#autovacuum_vacuum_threshold\s*=.*/autovacuum_vacuum_threshold = 500/g" /etc/postgresql/9.4/main/postgresql.conf && \
-  sed -i -e "s/#autovacuum_analyze_threshold\s*=.*/autovacuum_analyze_threshold = 250/g" /etc/postgresql/9.4/main/postgresql.conf
+  sed -i -e "s/#autovacuum_analyze_threshold\s*=.*/autovacuum_analyze_threshold = 250/g" /etc/postgresql/9.4/main/postgresql.conf && \
+  sed -i -e "s/ssl_key_file\s*=.*/ssl_key_file = \/etc\/ssl\/ssl-cert-snakeoil\.key/g" /etc/postgresql/9.4/main/postgresql.conf
 
 ADD run.sh /run.sh
 
