@@ -25,7 +25,6 @@ RUN echo "host    all             all             192.168.59.0/24            tru
   sed -i -e "s/#autovacuum_naptime\s*=.*/autovacuum_naptime = 30min/g" /etc/postgresql/9.5/main/postgresql.conf && \
   sed -i -e "s/#autovacuum_vacuum_threshold\s*=.*/autovacuum_vacuum_threshold = 500/g" /etc/postgresql/9.5/main/postgresql.conf && \
   sed -i -e "s/#autovacuum_analyze_threshold\s*=.*/autovacuum_analyze_threshold = 250/g" /etc/postgresql/9.5/main/postgresql.conf
-
   # sed -i -e "s/ssl_key_file\s*=.*/ssl_key_file = '\/etc\/ssl\/ssl-cert-snakeoil\.key'/g" /etc/postgresql/9.5/main/postgresql.conf && \
   # mv /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/ssl-cert-snakeoil.key && \
   # chown postgres /etc/ssl/ssl-cert-snakeoil.key
